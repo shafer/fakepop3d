@@ -1,0 +1,56 @@
+#!/bin/bash
+
+
+echo "+OK super pop3 server, no bags of chips"
+
+while read -a COMMAND ; do
+
+action=$( echo -n ${COMMAND[0]} | tr -d [:space:] | tr [a-z] [A-Z] )
+
+echo $action >> /tmp/pop3fake.log
+
+  case $action in
+#        CAPA)
+#               echo "+OK I do not do much"
+#		echo "USER"
+#		echo "IMPLEMENTATION Cookies Taste Good"
+#		echo "."
+#                ;;
+
+	USER)
+		echo "+OK I dare you to give me your password"
+		;;
+
+	PASS)
+		echo "+OK I cannot believe you did it"
+		;;
+
+	STAT)
+		echo "+OK 1 1024"
+		;;
+
+	UIDL)
+		echo "+OK"
+		echo "1 8d101d91bc6b45b5b625275d8b9f02b0"
+		echo "."
+		;;
+
+	LIST)
+		echo "+OK 1 1024"
+		;;
+
+	TOP)
+		echo "+OK"
+		cat /var/spool/fakemsg
+		;;
+
+	DELE)
+		echo "+OK"
+		;;
+
+	*)
+		echo "-ERR unrecognized"
+		;;
+  esac
+done
+
